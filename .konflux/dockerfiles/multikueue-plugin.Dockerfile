@@ -20,16 +20,16 @@ WORKDIR /
 COPY --from=builder /tmp/controller /controller
 
 LABEL \
-  com.redhat.component="openshift-pipelines-multikueue-plugin-rhel9-container" \
-  cpe="cpe:/a:redhat:openshift_pipelines:next::" \
-  description="Red Hat OpenShift Pipelines multikueue-plugin controller" \
-  io.k8s.description="Red Hat OpenShift Pipelines multikueue-plugin controller" \
-  io.k8s.display-name="Red Hat OpenShift Pipelines multikueue-plugin controller" \
-  io.openshift.tags="tekton,openshift,multikueue-plugin,controller" \
-  maintainer="pipelines-extcomm@redhat.com" \
-  name="openshift-pipelines/pipelines-multikueue-plugin-rhel9" \
-  summary="Red Hat OpenShift Pipelines multikueue-plugin controller" \
-  version="next"
+    com.redhat.component="openshift-pipelines-multikueue-plugin-rhel9-container" \
+    cpe="cpe:/a:redhat:openshift_pipelines:next::" \
+    description="Red Hat OpenShift Pipelines pipelines-multikueue-plugin multikueue-plugin" \
+    io.k8s.description="Red Hat OpenShift Pipelines pipelines-multikueue-plugin multikueue-plugin" \
+    io.k8s.display-name="Red Hat OpenShift Pipelines pipelines-multikueue-plugin multikueue-plugin" \
+    io.openshift.tags="tekton,openshift,pipelines-multikueue-plugin,multikueue-plugin" \
+    maintainer="pipelines-extcomm@redhat.com" \
+    name="openshift-pipelines/pipelines-multikueue-plugin-rhel9" \
+    summary="Red Hat OpenShift Pipelines pipelines-multikueue-plugin multikueue-plugin" \
+    version="next"
 
 RUN microdnf install -y shadow-utils && \
   groupadd -r -g 65532 nonroot && useradd --no-log-init -r -u 65532 -g nonroot nonroot
