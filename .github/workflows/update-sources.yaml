@@ -26,8 +26,16 @@ jobs:
           rm -fR upstream
           git clone https://github.com/openshift-pipelines/pipelines-multikueue-plugin upstream
           pushd upstream
-          git checkout -B release-release-v0.1.x origin/release-release-v0.1.x
+          git checkout -B release-v0.1.x origin/release-v0.1.x
           popd
+      - name: Configure Docker authentication
+        env:
+          DOCKER_CONFIG: /home/runner/.docker
+          DOCKER_JSON: ${{ secrets.DOCKER_REGISTRY_SECRET }}
+        run: |
+          mkdir -p $DOCKER_CONFIG
+          echo "${DOCKER_JSON}" > $DOCKER_CONFIG/config.json
+
       - name: update-rpms
         continue-on-error: true
         run: |
@@ -75,7 +83,7 @@ jobs:
           fi
           
           git commit -F- <<EOF
-          [bot] Update next from openshift-pipelines/pipelines-multikueue-plugin:release-release-v0.1.x to ${NEW_COMMIT}
+          [bot] Update next from openshift-pipelines/pipelines-multikueue-plugin:release-v0.1.x to ${NEW_COMMIT}
           
               $ git diff --stat ${NEW_COMMIT}..${OLD_COMMIT}
           $(cat /tmp/diff.txt | sed 's/^/    /' | head -c 55555)
@@ -90,7 +98,7 @@ jobs:
             gh pr create -B next -H actions/update/sources-next --label=automated --label=upstream --fill
           else
             echo "a PR already exists, editing..."
-          gh pr edit --title "[bot] Update next from openshift-pipelines/pipelines-multikueue-plugin:release-release-v0.1.x to ${NEW_COMMIT}" --body "$(cat /tmp/diff.txt | sed 's/^/    /' | head -c 55555)"
+          gh pr edit --title "[bot] Update next from openshift-pipelines/pipelines-multikueue-plugin:release-v0.1.x to ${NEW_COMMIT}" --body "$(cat /tmp/diff.txt | sed 's/^/    /' | head -c 55555)"
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
