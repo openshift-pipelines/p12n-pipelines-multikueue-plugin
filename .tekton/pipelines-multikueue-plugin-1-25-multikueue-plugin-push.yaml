@@ -10,16 +10,16 @@ metadata:
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch
-      == "next" &&
+      == "release-v1.25.x" &&
       ("upstream/***".pathChanged() || ".konflux/patches/***".pathChanged() || ".konflux/rpms/***".pathChanged() ||
       ".konflux/dockerfiles/***".pathChanged() ||
       ".tekton/***".pathChanged())
   creationTimestamp: null
   labels:
-    appstudio.openshift.io/application: openshift-pipelines-core-next
-    appstudio.openshift.io/component: pipelines-multikueue-plugin-next-multikueue-plugin
+    appstudio.openshift.io/application: openshift-pipelines-core-1-25
+    appstudio.openshift.io/component: pipelines-multikueue-plugin-1-25-multikueue-plugin
     pipelines.appstudio.openshift.io/type: build
-  name: pipelines-multikueue-plugin-next-multikueue-plugin-on-push
+  name: pipelines-multikueue-plugin-1-25-multikueue-plugin-on-push
   namespace: tekton-ecosystem-tenant
 spec:
   params:
@@ -35,7 +35,7 @@ spec:
     value: .konflux/dockerfiles/multikueue-plugin.Dockerfile
   - name: additional-tags
     value:
-      - "next"
+      - "v1.25.0"
   - name: prefetch-input
     value: |
       {"type": "rpm", "path": ".konflux/rpms"}
@@ -47,7 +47,7 @@ spec:
   pipelineRef:
     name: docker-build-ta
   taskRunTemplate:
-    serviceAccountName: build-pipeline-pipelines-multikueue-plugin-next-multikueue-plugin
+    serviceAccountName: build-pipeline-pipelines-multikueue-plugin-1-25-multikueue-plugin
   workspaces:
   - name: git-auth
     secret:
