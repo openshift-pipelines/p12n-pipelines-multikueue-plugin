@@ -31,8 +31,9 @@ LABEL \
     summary="Red Hat OpenShift Pipelines pipelines-multikueue-plugin multikueue-plugin" \
     version="next"
 
-RUN microdnf install -y shadow-utils && \
-  groupadd -r -g 65532 nonroot && useradd --no-log-init -r -u 65532 -g nonroot nonroot
+# shadow-utils already ships in the UBI 9 minimal runtime image. Do not install
+# it here: nothing is prefetched for it, so the hermetic build has no RPM repo.
+RUN groupadd -r -g 65532 nonroot && useradd --no-log-init -r -u 65532 -g nonroot nonroot
 USER 65532
 
 ENTRYPOINT ["/controller"]
