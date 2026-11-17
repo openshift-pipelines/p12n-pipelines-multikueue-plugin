@@ -21,7 +21,7 @@ COPY --from=builder /tmp/controller /controller
 
 LABEL \
     com.redhat.component="openshift-pipelines-multikueue-plugin-rhel9-container" \
-    cpe="cpe:/a:redhat:openshift_pipelines:next::el9" \
+    cpe="cpe:/a:redhat:openshift_pipelines:1.25::el9" \
     description="Red Hat OpenShift Pipelines pipelines-multikueue-plugin multikueue-plugin" \
     io.k8s.description="Red Hat OpenShift Pipelines pipelines-multikueue-plugin multikueue-plugin" \
     io.k8s.display-name="Red Hat OpenShift Pipelines pipelines-multikueue-plugin multikueue-plugin" \
@@ -29,7 +29,7 @@ LABEL \
     maintainer="pipelines-extcomm@redhat.com" \
     name="openshift-pipelines/pipelines-multikueue-plugin-rhel9" \
     summary="Red Hat OpenShift Pipelines pipelines-multikueue-plugin multikueue-plugin" \
-    version="next"
+    version="v1.25.0"
 
 # shadow-utils already ships in the UBI 9 minimal runtime image. Do not install
 # it here: nothing is prefetched for it, so the hermetic build has no RPM repo.
